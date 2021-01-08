@@ -1,1 +1,1 @@
-../resourse/ioctl.pdf
+../resource/ioctl.pdf

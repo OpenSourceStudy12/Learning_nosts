@@ -6,25 +6,25 @@ IIC协议包含START（类似于第一下敲门）、ACK（里面的人给予回
 这几个东西，当然还少不了普通的数据发送。尽管协议中规定START必须，其他几个非必须，但实际上其他三个仍旧非常重要。
 ```
 
-![i2c](../resourse/i2c1.png)
+![i2c](../resource/i2c1.png)
 
-![i2c](../resourse/i2c2.png)
+![i2c](../resource/i2c2.png)
 
-![i2c](../resourse/i2c3.png)
+![i2c](../resource/i2c3.png)
 
-![i2c](../resourse/i2c4.png)
+![i2c](../resource/i2c4.png)
 
-![i2c](../resourse/i2c5.png)
+![i2c](../resource/i2c5.png)
 
-![i2c](../resourse/i2c6.png)
+![i2c](../resource/i2c6.png)
 
-![i2c](../resourse/i2c7.png)
+![i2c](../resource/i2c7.png)
 
-![i2c](../resourse/i2c8.png)
+![i2c](../resource/i2c8.png)
 
-![i2c](../resourse/i2c9.png)
+![i2c](../resource/i2c9.png)
 
-![i2c](../resourse/i2c10.png)
+![i2c](../resource/i2c10.png)
 
 
 ```

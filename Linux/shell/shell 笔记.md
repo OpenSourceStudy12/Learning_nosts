@@ -1,11 +1,11 @@
-![123](../../resourse/111.png)
+![123](../../resource/111.png)
 
-![123](../../resourse/222.png)
+![123](../../resource/222.png)
 
-![123](../../resourse/333.png)
+![123](../../resource/333.png)
 
-![123](../../resourse/444.png)
+![123](../../resource/444.png)
 
-![123](../../resourse/555.png)
+![123](../../resource/555.png)
 
-![123](../../resourse/666.png)
+![123](../../resource/666.png)

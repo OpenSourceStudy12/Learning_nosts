@@ -38,7 +38,7 @@ struct boot_param_header {
 
 ### device-tree structure
 
-![image](../../resourse/dts1.png)
+![image](../../resource/dts1.png)
 
 ```
 #define FDT_MAGIC   0xd00dfeed  /* 4: version, 4: total size */
@@ -57,7 +57,7 @@ struct boot_param_header {
 #define FDT_V16_SIZE    FDT_V3_SIZE
 #define FDT_V17_SIZE    (FDT_V16_SIZE + sizeof(uint32_t))
 ```
-![map](../../resourse/dts2.png)
+![map](../../resource/dts2.png)
 
 # 设备树加载分析(kernel version=4.4)
 
