@@ -246,6 +246,171 @@ Desc: 计算s 开头不包含reject 中字符的个数
 7. char * strpbrk(const char *cs, const char *ct)
 Desc: 查找ct 中任意字符第一次在cs出现的位置
 
-8. char * strsep(const char** s, const char* ct)
+8.1 char* strtok(char *s, const char* delim)
+Desc: 用delim分割字符串, strtok 第一次会将s 中所有出现的delim字符替换为NULL, 然后通过依次调用strtok(NULL, delim) 得到各子串
+
+8.2 char* strsep(char** s, const char* ct)
+Desc: 用ct分割字符串，返回分隔符左侧子串，同时s 指向分隔符右侧子串
+
+9. bool sysfs_streq(const char * s1, const char * s2)
+Desc: 比较s1 和 s2, linux sysfs 输入以"\n", 结尾，sysfs_streq 设定 "\n" 和 "" 相等
+
+10.1 int match_string(const char *const * array, size_t n, const char * string)
+Desc: matches given string in an array, 返回 index of a string in the array if matches, or -EINVAL otherwise.
+
+10.2 int __sysfs_match_string(const char *const * array, size_t n, const char * str)
+Desc: 使用sysfs_streq 比较s1, s2
+
+11.1 memset(void *buf, int c, size_t count)
+Desc: 填充字节
+
+11.2 memzero__explicit(void *buf, size_t count)
+
+11.3 void * memset16(uint16_t * s, uint16_t v, size_t count)
+Desc: 填充 uint16_t 数据
+
+11.4 void * memset32(uint32_t * s, uint32_t v, size_t count)
+Desc: 填充 uint32_t 数据
+
+11.5 void * memset64(uint64_t * s, uint64_t v, size_t count)
+Desc: 填充 uint64_t 数据
+
+12.1 void * memcpy(void * dest, const void * src, size_t count)
+
+12.2 void * memmove(void * dest, const void * src, size_t count)
+
+12.3 __visible int memcmp(const void * cs, const void * ct, size_t count)
+
+12.4 void * memscan(void * addr, int c, size_t size)
 Desc: 
+
+12.5 void * memchr(const void * s, int c, size_t n)
+Desc: 在内存区查找字符c
+
+12.6 void * memchr_inv(const void * start, int c, size_t bytes)
+Desc: 在内存区查找第一个非C字符
+
+13.1 char * strstr(const char * s1, const char * s2)
+Desc: 在s1 中查找第一次出现s2 的位置
+
+13.2 char * strnstr(const char * s1, const char * s2, size_t len)
+
+13.3 char * strreplace(char * s, char old, char new)
+Desc: 用new字符替换s中出现的old字符
+```
+
+### 2.3 Bit Operations
+
+```
+1.1 void set_bit(long nr, volatile unsigned long * addr)
+Desc: bit 置1，原子操作
+
+1.2 void __set_bit(long nr, volatile unsigned long * addr)
+Desc: bit 置1，非原子操作
+
+1.3 void clear_bit(long nr, volatile unsigned long * addr)
+Desc: bit 清0, 原子操作
+
+1.4 void change_bit(long nr, volatile unsigned long * addr)
+Desc: bit change, 原子操作
+
+1.5 void __change_bit(long nr, volatile unsigned long * addr)
+Desc: bit change, 非原子操作
+
+2.1 bool test_and_set_bit(long nr, volatile unsigned long * addr)
+Desc: set bit 且 返回 旧值，原子操作
+
+2.2 bool test_and_set_bit_lock(long nr, volatile unsigned long * addr)
+Desc: 类似 test_and_set_bit, 用于x86
+
+2.3 bool __test_and_set_bit(long nr, volatile unsigned long * addr)
+Desc: 非原子操作
+
+2.4 bool test_and_clear_bit(long nr, volatile unsigned long * addr)
+Desc: clear bit 且 返回旧值， 原子操作
+
+2.5 bool __test_and_clear_bit(long nr, volatile unsigned long * addr)
+Desc: 非原子操作
+
+2.6 bool test_and_change_bit(long nr, volatile unsigned long * addr)
+Desc: change bit 且返回旧值， 原子操作
+
+3. bool test_bit(int nr, const volatile unsigned long * addr)
+Desc: 检查bit 是否set
+
+4.1 unsigned long __ffs(unsigned long word)
+Desc: 查找word 第一个bit 为 1 的位置
+
+4.2 unsigned long ffz(unsigned long word)
+Desc: 查找word 第一个 bit 为 0 的位置
+
+4.3 int ffs(int x)
+Desc: same as __ffs
+
+4.4 int fls(int x)
+Desc: 查找word 最后一个bit 为 1 的位
+
+4.5 int fls64(__u64 x)
+
+```
+
+## 3. memory barrier
+
+
+| 接口 | 作用 |
+| - | - | - |
+| barrier() | 优化屏障，阻止编译器为了进行性能优化而进行的memory access reorder |
+| mb() | 内存屏障（包括读和写），用于SMP和UP |
+| rmb()| 读内存屏障，用于SMP和UP |
+| wmb()| 写内存屏障，用于SMP和UP|
+| smp_mb()| 用于SMP场合的内存屏障，对于UP不存在memory order的问题（对汇编指令），因此，在UP上就是一个优化屏障，确保汇编和c代码的memory order是一致的 |
+| smp_rmb() | 用于SMP场合的读内存屏障|
+| smp_wmb() | 用于SMP场合的写内存屏障|  
+
+
+## 4. Basic Kernel Library Functions
+### 4.1 Bitmap Operations
+
+```
+1.1 void __bitmap_shift_right(unsigned long * dst, const unsigned long * src, unsigned shift, unsigned nbits)
+ Desc: 将src 右移shift位，保存到dst
+
+1.2 void __bitmap_shift_left(unsigned long * dst, const unsigned long * src, unsigned int shift, unsigned int nbits)
+Desc: 将src 左移shift位，保存到dst
+
+2. unsigned long bitmap_find_next_zero_area_off(unsigned long * map, unsigned long size, unsigned long start, unsigned int nr, unsigned long align_mask, unsigned long align_offset)
+Desc: 
+
+3.1 int __bitmap_parse(const char * buf, unsigned int buflen, int is_user, unsigned long * maskp, int nmaskbits)
+Desc: convert an ASCII hex string into a bitmap.
+
+3.2 int bitmap_parse_user(const char __user * ubuf, unsigned int ulen, unsigned long * maskp, int nmaskbits)
+Desc: convert an ASCII hex string in a user buffer into a bitmap
+
+4.1 int bitmap_print_to_pagebuf(bool list, char * buf, const unsigned long * maskp, int nmaskbits)
+Desc: convert bitmap to list or hex format ASCII string
+
+4.2 int bitmap_parselist_user(const char __user * ubuf, unsigned int ulen, unsigned long * maskp, int nmaskbits)
+
+5.1 void bitmap_remap(unsigned long * dst, const unsigned long * src, const unsigned long * old, const unsigned long * new, unsigned int nbits)
+Desc: Apply map defined by a pair of bitmaps to another bitmap 
+
+5.2 int bitmap_bitremap(int oldbit, const unsigned long * old, const unsigned long * new, int bits)
+Desc: Apply map defined by a pair of bitmaps to a single bit
+
+5.3 void bitmap_onto(unsigned long * dst, const unsigned long * orig, const unsigned long * relmap, unsigned int bits)
+Desc: translate one bitmap relative to another
+
+6. void bitmap_fold(unsigned long * dst, const unsigned long * orig, unsigned int sz, unsigned int nbits)
+Desc: fold larger bitmap into smaller, modulo specified size
+
+7.1 int bitmap_find_free_region(unsigned long * bitmap, unsigned int bits, int order)
+Desc: find a contiguous aligned mem region
+
+7.2 void bitmap_release_region(unsigned long * bitmap, unsigned int pos, int order)
+Desc: release allocated bitmap region
+
+7.3 int bitmap_allocate_region(unsigned long * bitmap, unsigned int pos, int order)
+Desc: allocate bitmap region
+
 ```
