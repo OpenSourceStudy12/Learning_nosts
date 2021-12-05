@@ -18,7 +18,7 @@
    所以采用git format-patch 和 am 命令进行生成patch和打patch。
    eg:[](https://)
 
-### 2.1 git format-aptch:
+### 2.1 git format-patch:
 
 git format-patch HEAD^  #生成最近1次commit的patch
 git format-patch HEAD^^  #生成最近2次commit的patch
